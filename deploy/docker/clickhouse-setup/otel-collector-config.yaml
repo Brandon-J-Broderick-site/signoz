@@ -1,4 +1,7 @@
 receivers:
+  httplogreceiver/json:
+    endpoint: 0.0.0.0:8082
+    source: json
   tcplog/docker:
     listen_address: "0.0.0.0:2255"
     operators:
@@ -163,6 +166,6 @@ service:
       processors: [batch]
       exporters: [clickhousemetricswrite/prometheus]
     logs:
-      receivers: [otlp, tcplog/docker]
+      receivers: [otlp, tcplog/docker, httplogreceiver/json]
       processors: [batch]
       exporters: [clickhouselogsexporter]
