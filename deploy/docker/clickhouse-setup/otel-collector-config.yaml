@@ -46,6 +46,11 @@ receivers:
       disk: {}
       filesystem: {}
       network: {}
+  httpcheck:
+    targets:
+      - endpoint: #fill it with endpoint
+        method: GET
+    collection_interval: 10s
   prometheus:
     config:
       global:
@@ -154,7 +159,7 @@ service:
       processors: [signozspanmetrics/cumulative, signozspanmetrics/delta, batch]
       exporters: [clickhousetraces]
     metrics:
-      receivers: [otlp]
+      receivers: [otlp, httpcheck]
       processors: [batch]
       exporters: [clickhousemetricswrite]
     metrics/generic:
